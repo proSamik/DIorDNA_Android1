@@ -43,9 +43,9 @@ class MainActivity : AppCompatActivity() {
         mr = MediaRecorder()                    // Calling the MediaRecorder function and initialising
 
         //Buttons are disabled at start
-        button1.isEnabled = false  //using the synthetic module
-        button2.isEnabled = false  //using the synthetic module
-        button3.isEnabled = false  //using the synthetic module
+        start.isEnabled = false  //using the synthetic module
+        stop.isEnabled = false  //using the synthetic module
+        play.isEnabled = false  //using the synthetic module
 
         //Checking if record audio permission is given or not
         if(ActivityCompat.checkSelfPermission(
@@ -57,13 +57,13 @@ class MainActivity : AppCompatActivity() {
         }
 
         //This stage will come if permission is given after creating
-        button1.isEnabled = true
+        start.isEnabled = true
 
 
-        // ----------------- If All Permissions are given ---------------------------- \\
+        // ---------------------- If All Permissions are given ---------------------------- \\
 
         //code for start recording
-        button1.setOnClickListener{
+        start.setOnClickListener{
             mr.setAudioSource(MediaRecorder.AudioSource.MIC)                //This is the most important part
             mr.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)        //Output Format
             mr.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB)           //Audio Encoder
@@ -79,20 +79,20 @@ class MainActivity : AppCompatActivity() {
             }
 
             mr.start()                                                      //Begins capturing and encoding data to the file specified with setOutputFile()
-            button2.isEnabled = true
-            button1.isEnabled = false
+            stop.isEnabled = true
+            start.isEnabled = false
         }
 
         //Code for Stop Recording
-        button2.setOnClickListener{
+        stop.setOnClickListener{
             mr.stop()                                                       // It stops recording
-            button1.isEnabled = true
-            button2.isEnabled = false
-            button3.isEnabled = true
+            start.isEnabled = true
+            stop.isEnabled = false
+            play.isEnabled = true
         }
 
         //Play Recording
-        button3.setOnClickListener{
+        play.setOnClickListener{
             var mp = MediaPlayer()                                          // Initialising
             mp.setDataSource(path)                                          // Calling from DataSource
             mp.prepare()                                                    // The recorder to begin capturing and encoding data
@@ -119,6 +119,6 @@ class MainActivity : AppCompatActivity() {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if(requestCode == 111 && grantResults[0] == PackageManager.PERMISSION_GRANTED )
-            button1.isEnabled = true        //if record audio permission is given, then enable the start button
+            start.isEnabled = true        //if record audio permission is given, then enable the start button
     }
 }
