@@ -23,7 +23,6 @@ import java.io.IOException
 class RecorderActivity : AppCompatActivity() {
 
     private lateinit var mr: MediaRecorder           // creating mr as MediaRecorder
-    private var defaultCount = 0                    // Setting default count if no text given in note title
     private lateinit var path: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -155,16 +154,16 @@ class RecorderActivity : AppCompatActivity() {
     private fun noteTitle(): String? {
         val title: String? = noteTitleEditText.text.toString().trim()
 
+        val currentTimestamp = System.currentTimeMillis().toString()
+
         if (title ==null){
-            defaultCount += 1
-            return "default${defaultCount}"
+            return "default${currentTimestamp}"
         }
 
         return if (title != "") {
             title
         } else{
-            defaultCount += 1
-            "default${defaultCount}"
+            "default${currentTimestamp}"
         }
 
     }
