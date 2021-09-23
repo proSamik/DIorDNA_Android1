@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1700923509",
+    "project_id": "diordna-android1",
+    "storage_bucket": "diordna-android1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1700923509:android:1c6f0753032c53cc8a903c",
+        "android_client_info": {
+          "package_name": "com.example.diordna_android1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1700923509-f52g77vu1na7uk5jjl9su452r43cndaj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0GdtU-r9nKstQhFVVv8NpUc-1xW4v6TY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1700923509-f52g77vu1na7uk5jjl9su452r43cndaj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
