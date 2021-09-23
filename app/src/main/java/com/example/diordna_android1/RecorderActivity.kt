@@ -11,8 +11,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.provider.Settings
+import android.widget.RadioButton
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_recorder.*
 import java.io.File
 import java.io.IOException
@@ -20,6 +23,8 @@ import java.io.IOException
 class RecorderActivity : AppCompatActivity() {
 
     private lateinit var mr: MediaRecorder           // creating mr as MediaRecorder
+    private var defaultCount = 0                    // Setting default count if no text given in note title
+    private lateinit var path: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +43,6 @@ class RecorderActivity : AppCompatActivity() {
             }
         }
 
-        var path = getRecordingFilePath()       // Initialising the path to store the recording
         mr = MediaRecorder()                    // Calling the MediaRecorder function and initialising
 
         //Buttons are disabled at start
@@ -64,10 +68,12 @@ class RecorderActivity : AppCompatActivity() {
 
         //code for start recording
         start.setOnClickListener{
+
             mr.setAudioSource(MediaRecorder.AudioSource.MIC)                //This is the most important part
             mr.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)        //Output Format
             mr.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB)           //Audio Encoder
 
+            path = getRecordingFilePath()                               // Initialising the path to store the recording
             mr.setOutputFile(path)                                          //Output File path
 
             try {
@@ -101,16 +107,6 @@ class RecorderActivity : AppCompatActivity() {
 
     }
 
-    // Function for getting the recorded path
-    private fun getRecordingFilePath(): String {
-        val filepath = Environment.getExternalStorageDirectory().path       // getting filepath
-        val file = File("$filepath/Music")                         // Creating separate folder
-        if (!file.exists()) {
-            file.mkdirs()                                                   // if file doesn't exist then make directory
-        }
-        return file.absolutePath + "/" + "test" + ".mp3"                    //return file path
-    }
-
     // Function for getting permission which is overridden to make start button enabled
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -120,5 +116,56 @@ class RecorderActivity : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if(requestCode == 111 && grantResults[0] == PackageManager.PERMISSION_GRANTED )
             start.isEnabled = true        //if record audio permission is given, then enable the start button
+    }
+
+
+    // Function for getting the recorded path
+    private fun getRecordingFilePath(): String {
+
+        val userName: String = firebaseUserName()
+        val labelCategory = radioSelection()
+        val filepath = Environment.getExternalStorageDirectory().path       // getting filepath
+        val file = File("$filepath/NoiceNotes/${userName}/${labelCategory}")                         // Creating separate folder
+        if (!file.exists()) {
+            file.mkdirs()                                                   // if file doesn't exist then make directory
+        }
+        val fileName = noteTitle()
+        return file.absolutePath + "/" + "$fileName" + ".mp3"                    //return file path
+    }
+
+    //To get the username of the user
+    private fun firebaseUserName(): String {
+        val user = Firebase.auth.currentUser
+        var name = "default"
+        user?.let {
+            name = user.displayName.toString()
+        }
+        return name
+    }
+
+    //It returns the radio Button Selected
+    private fun radioSelection(): String {
+        val selected = labelRadioBtn.checkedRadioButtonId
+        val btn = findViewById<RadioButton>(selected)
+        Toast.makeText(this, btn.text, Toast.LENGTH_SHORT).show()
+        return btn.text.toString()
+    }
+
+    //It returns the EditText string
+    private fun noteTitle(): String? {
+        val title: String? = noteTitleEditText.text.toString().trim()
+
+        if (title ==null){
+            defaultCount += 1
+            return "default${defaultCount}"
+        }
+
+        return if (title != "") {
+            title
+        } else{
+            defaultCount += 1
+            "default${defaultCount}"
+        }
+
     }
 }
