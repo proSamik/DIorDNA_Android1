@@ -32,6 +32,7 @@ android {
 }
 
 dependencies {
+    implementation 'com.google.ar.sceneform:filament-android:1.17.1'
     apply plugin : "kotlin-android"             //This is important
     apply plugin : "kotlin-android-extensions"  //This is important because from xml, i can directly call the ids
     implementation 'androidx.core:core-ktx:1.6.0'
