@@ -33,6 +33,8 @@ android {
 }
 
 dependencies {
+
+    implementation 'com.google.ar.sceneform:filament-android:1.17.1'
     implementation 'com.google.firebase:firebase-auth-ktx:21.0.1'
     apply plugin : "kotlin-android"             //This is important
     apply plugin : "kotlin-android-extensions"  //This is important because from xml, i can directly call the ids
