@@ -2,29 +2,45 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.diordna_android1">
 
-
-   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />  <!--  //This is to store audio files in local-->
-    <uses-permission android:name="android.permission.RECORD_AUDIO"></uses-permission>  <!--  //This is to record audio -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- //This is to store audio files in local -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" /> <!-- //This is to record audio -->
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="@string/noice_notes"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:requestLegacyExternalStorage="true"
         android:theme="@style/Theme.DIorDNA_Android1">
+
+        <!-- Login Activity is first intent-->
+
+
+        <activity
+            android:name=".RecorderActivity"
+            android:exported="true" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
+        </activity>
+
+        <activity
+            android:name=".LoginActivity"
+            android:exported="true" android:theme="@style/Theme.AppCompat.NoActionBar">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
+
     </application>
 
 </manifest>

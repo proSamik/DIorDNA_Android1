@@ -1,4 +1,18 @@
 <resources>
     <string name="app_name">DIorDNA_Android1</string>
     <string name="devlok_master">Devlok Master</string>
+    <string name="enter_your_password">Enter Your Password</string>
+    <string name="enter_your_email">Enter Your Email</string>
+    <string name="enter_username">Enter Username</string>
+    <string name="noice_notes">NOICE NOTES</string>
+    <string name="sign_in">SIGN IN</string>
+    <string name="sign_up">SIGN UP</string>
+    <string name="enter_note_title">Enter Note Title</string>
+    <string name="normal">Normal</string>
+    <string name="important">Important</string>
+    <string name="urgent">Urgent</string>
+    <string name="record_audio_activity">Record Audio Activity</string>
+    <string name="stop">Stop</string>
+    <string name="play">Play</string>
+    <string name="start">Start</string>
 </resources>
