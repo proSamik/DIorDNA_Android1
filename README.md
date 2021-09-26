@@ -11,7 +11,7 @@ Use the Android Studio *Build Variants* button to choose between **production** 
 ## Generating APK for manual Installation
 From Android Studio:
 1. ***Build*** menu
-2. ***Build Bundle*s*/APK*s* ***
+2. ***Build Bundle(s)/APK(s) ***
 3. Build APK and install manually in mobile 
 
 ## Maintainers
