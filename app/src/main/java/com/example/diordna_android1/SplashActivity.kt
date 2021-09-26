@@ -17,9 +17,9 @@ class SplashActivity : AppCompatActivity() {
         // to send a message with a delayed time.
         handler= Handler()
         handler.postDelayed({
-            val intent = Intent(this, LoginActivity::class.java)
+            val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
             finish()
-        }, 2000)
+        }, 1500)
     }
 }

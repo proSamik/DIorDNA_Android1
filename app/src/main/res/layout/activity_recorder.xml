@@ -30,6 +30,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView">
 
+<!--        Urgent-->
         <RadioButton
             android:id="@+id/urgentRadio"
             android:layout_width="323dp"
@@ -37,6 +38,7 @@
             android:text="@string/urgent"
             android:textSize="18sp" />
 
+<!--        Important-->
         <RadioButton
             android:id="@+id/importantRadio"
             android:layout_width="293dp"
@@ -44,6 +46,7 @@
             android:text="@string/important"
             android:textSize="18sp" />
 
+<!--        Normal-->
         <RadioButton
             android:id="@+id/Normal"
             android:layout_width="224dp"

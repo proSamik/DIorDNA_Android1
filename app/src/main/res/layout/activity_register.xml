@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/activity_login_bg"
-    tools:context=".LoginActivity">
+    tools:context=".RegisterActivity">
 
     <!-- cardView-->
     <androidx.cardview.widget.CardView
@@ -15,12 +15,33 @@
         app:layout_constraintTop_toTopOf="parent"
         app:cardBackgroundColor="@color/backgroundColor"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" >
+        app:layout_constraintStart_toStartOf="parent"
+        >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
+            <!--Username-->
+            <EditText
+                android:id="@+id/userNameText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/textBackgroundColor"
+                android:drawableLeft="@drawable/username"
+                android:ems="16"
+                android:gravity="center"
+                android:hint="@string/username_1"
+                android:inputType="text"
+                android:minHeight="48dp"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toTopOf="@+id/emailText"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <!--EMAIL-->
             <EditText
@@ -39,7 +60,7 @@
                 app:layout_constraintBottom_toTopOf="@id/passwordText"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/userNameText" />
 
             <!--PASSWORD-->
             <EditText
@@ -55,36 +76,36 @@
                 android:inputType="textPassword"
                 android:minHeight="48dp"
                 android:textSize="15sp"
-                app:layout_constraintBottom_toTopOf="@+id/signinBtn"
+                app:layout_constraintBottom_toTopOf="@+id/signupBtn"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/emailText" />
 
-            <!--SIGN IN-->
+            <!--SIGN UP-->
             <Button
-                android:id="@+id/signinBtn"
+                android:id="@+id/signupBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:backgroundTint="@color/themeColor"
-                android:text="SIGN IN"
+                android:text="@string/sign_up"
                 android:textColor="@color/white"
-                app:layout_constraintBottom_toTopOf="@id/register"
+                app:layout_constraintBottom_toTopOf="@id/alreadyLogin"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/passwordText" />
 
             <!--Already have an account?-->
             <ImageButton
-                android:id="@+id/register"
+                android:id="@+id/alreadyLogin"
                 android:layout_width="294dp"
                 android:layout_height="30dp"
                 android:layout_marginBottom="20dp"
-                android:src="@drawable/register_written"
+                android:src="@drawable/already_login"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/signinBtn" />
+                app:layout_constraintTop_toBottomOf="@+id/signupBtn" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

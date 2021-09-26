@@ -13,6 +13,15 @@
     <string name="urgent">Urgent</string>
     <string name="record_audio_activity">Record Audio Activity</string>
     <string name="stop">Stop</string>
-    <string name="play">Play</string>
     <string name="start">Start</string>
+    <string name="catalogue_your_notes">CATALOGUE YOUR NOTES</string>
+    <string name="record">RECORD</string>
+    <string name="create_note">Create Note</string>
+    <string name="previous_notes">PREVIOUS NOTES</string>
+    <string name="note_title">Note Title</string>
+    <string name="last_modified_date">Last Modified Date</string>
+    <string name="play">Play</string>
+    <string name="username">Username</string>
+    <string name="username_1">Username</string>
+    <string name="email">Email</string>
 </resources>

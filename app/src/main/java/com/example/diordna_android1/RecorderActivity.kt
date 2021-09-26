@@ -3,8 +3,10 @@ package com.example.diordna_android1
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.media.AudioManager
 import android.media.MediaPlayer
 import android.media.MediaRecorder
+import android.media.ToneGenerator.MAX_VOLUME
 import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -19,11 +21,13 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_recorder.*
 import java.io.File
 import java.io.IOException
+import kotlin.math.ln
+import kotlin.math.log
 
 class RecorderActivity : AppCompatActivity() {
 
     private lateinit var mr: MediaRecorder           // creating mr as MediaRecorder
-    private lateinit var path: String
+    private lateinit var path: String               // Path
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,7 +65,6 @@ class RecorderActivity : AppCompatActivity() {
 
         //This stage will come if permission is given after creating
         start.isEnabled = true
-
 
         // ---------------------- If All Permissions are given ---------------------------- \\
 
@@ -101,9 +104,9 @@ class RecorderActivity : AppCompatActivity() {
             var mp = MediaPlayer()                                          // Initialising
             mp.setDataSource(path)                                          // Calling from DataSource
             mp.prepare()                                                    // The recorder to begin capturing and encoding data
+            mp.setVolume(volumeRange(),volumeRange())                       //It will set Volume Range while playing
             mp.start()                                                      // Begins capturing and encoding data to the file specified with setOutputFile()
         }
-
     }
 
     // Function for getting permission which is overridden to make start button enabled
@@ -157,14 +160,24 @@ class RecorderActivity : AppCompatActivity() {
         val currentTimestamp = System.currentTimeMillis().toString()
 
         if (title ==null){
-            return "default${currentTimestamp}"
+            return "$currentTimestamp"
         }
 
         return if (title != "") {
             title
         } else{
-            "default${currentTimestamp}"
+            "$currentTimestamp"
         }
 
     }
+
+    //It returns the current Volume to media player
+    private fun volumeRange(): Float {
+        val audioManager = getSystemService(AUDIO_SERVICE) as AudioManager
+        val soundVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)
+
+        // Get the device music maximum volume level
+        return ( (1 - ln( MAX_VOLUME.toFloat() - soundVolume.toFloat() )) / ln( MAX_VOLUME.toFloat() ))
+    }
+
 }

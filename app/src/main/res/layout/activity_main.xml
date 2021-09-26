@@ -1,20 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--Record Audio activity-->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/activity_main_bg"
     tools:context=".MainActivity">
 
+    <!--    PREVIOUS NOTES-->
     <TextView
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello"
+        android:layout_marginBottom="16dp"
+        android:text="@string/previous_notes"
+        android:textColor="#4B4D4C"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/urgentBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:targetApi="p" />
+
+    <!--    URGENT BUTTON-->
+    <Button
+        android:id="@+id/urgentBtn"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:backgroundTint="@color/themeColor"
+        android:text="@string/urgent"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:layout_marginBottom="35dp"
+        app:layout_constraintTop_toBottomOf="@id/recordBtn"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/importantBtn"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!--    IMPORTANT BUTTON-->
+    <Button
+        android:id="@+id/importantBtn"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:backgroundTint="@color/themeColor"
+        android:text="@string/important"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:layout_marginBottom="35dp"
+        app:layout_constraintTop_toBottomOf="@id/recordBtn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/urgentBtn" />
+
+    <!--    NORMAL BUTTON-->
+    <Button
+        android:id="@+id/normalBtn"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="70dp"
+        android:backgroundTint="@color/themeColor"
+        android:text="@string/normal"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.532"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/importantBtn"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <!--    Image ICON-->
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="239dp"
+        android:layout_height="151dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/recordBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.234"
+        app:srcCompat="@drawable/main_icon" />
+
+    <!--    RECORD BUTTON-->
+    <Button
+        android:id="@+id/recordBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="180dp"
+        android:backgroundTint="@color/backgroundColor"
+        android:drawableTop="@drawable/mic_icon"
+        android:text="@string/create_note"
+        android:textColor="@color/themeColor"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
