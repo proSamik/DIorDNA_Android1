@@ -4,7 +4,7 @@
 ## INSTALLATION
 Clone this repository and import into Android Studio. 
 ```bash
-git clone git@github.com:wolox/<DIorDNA_Android1>.git
+git clone https://github.com/licofiS/DIorDNA_Android1
 ```
 ## Build Variants 
 Use the Android Studio *Build Variants* button to choose between **production** and **staging** flavors combined with debug and release build types.
