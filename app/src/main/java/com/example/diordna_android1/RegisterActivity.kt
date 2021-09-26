@@ -1,6 +1,7 @@
 package com.example.diordna_android1
 
 import android.content.ContentValues
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -11,6 +12,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_register.*
+import java.util.regex.Pattern
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -24,12 +26,14 @@ class RegisterActivity : AppCompatActivity() {
 
         //Register or Sign Up
         signupBtn.setOnClickListener {
-            val emailOfUser: String = emailText.text.toString()
-            val passwordOfUser = passwordText.text.toString()
-            val userName = userNameText.text.toString()
 
-            //function for createUserWithEmailAndPassword
-            createUserWithEmailAndPassword(emailOfUser, passwordOfUser, userName)
+            if(validation()){
+                val userName = userNameText.text.toString()
+                val emailOfUser: String = emailText.text.toString()
+                val passwordOfUser = passwordText.text.toString()
+                //function for createUserWithEmailAndPassword
+                createUserWithEmailAndPassword(emailOfUser, passwordOfUser, userName)
+            }
         }
 
         //Already Have an account Clicked
@@ -38,6 +42,31 @@ class RegisterActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
+    // It will verify that if all fields are filled are not
+    private fun validation(): Boolean {
+
+            var flag = true
+
+            if(userNameText.text.isNullOrEmpty()) {
+                userNameText?.error = "Enter Username"
+                flag = false
+            }
+            if(emailText.text.isNullOrEmpty()){
+                emailText?.error = "Enter email"
+                flag = false
+            }
+            if(passwordText.text.isNullOrEmpty()){
+                passwordText?.error = "Enter password"
+                flag = false
+            }
+            else if(passwordText.text.length <8 || passwordText.text.length > 16){
+                passwordText?.error = "Password should be between 8-16 characters"
+                flag = false
+            }
+
+            return flag
+        }
 
     //Override onstart to launch recorderActivity
     public override fun onStart() {

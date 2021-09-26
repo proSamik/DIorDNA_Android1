@@ -26,8 +26,11 @@ class LoginActivity : AppCompatActivity() {
             val emailOfUser: String = emailText.text.toString()
             val passwordOfUser = passwordText.text.toString()
 
-            //function for signInWithEmailAndPassword
-            signInWithEmailAndPassword(emailOfUser, passwordOfUser)
+            if(validation()){
+                //function for signInWithEmailAndPassword
+                signInWithEmailAndPassword(emailOfUser, passwordOfUser)
+            }
+
 
         }
 
@@ -44,9 +47,26 @@ class LoginActivity : AppCompatActivity() {
         // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = auth.currentUser
         if(currentUser != null){
-            Toast.makeText(this,"User account is already created", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this,"User account is already created", Toast.LENGTH_SHORT).show()
             updateUI()
         }
+    }
+
+    // It will verify that if all fields are filled are not
+    private fun validation(): Boolean {
+
+        var flag = true
+
+        if(emailText.text.isNullOrEmpty()){
+            emailText?.error = "Enter email"
+            flag = false
+        }
+        if(passwordText.text.isNullOrEmpty()){
+            passwordText?.error = "Enter password"
+            flag = false
+        }
+
+        return flag
     }
 
     //It will redirect to MainActivity
@@ -72,5 +92,4 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
     }
-
 }
