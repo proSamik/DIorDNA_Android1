@@ -21,6 +21,9 @@ import androidx.core.app.ActivityCompat
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_recorder.*
+import kotlinx.android.synthetic.main.activity_recorder.homeBtn
+import kotlinx.android.synthetic.main.activity_recorder.noteBtn
+import kotlinx.android.synthetic.main.activity_recorder.profileBtn
 import java.io.File
 import java.io.IOException
 
@@ -89,6 +92,22 @@ class RecorderActivity : AppCompatActivity() {
         stop.setOnClickListener{
             stopRecording()
             mrRunning = false
+        }
+
+
+        //Codes for Navigation
+        homeBtn.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
+
+        noteBtn.setOnClickListener {
+            //Create Note no need to be done here
+        }
+
+        profileBtn.setOnClickListener {
+            val intent = Intent(this, ProfileActivity::class.java)
+            startActivity(intent)
         }
     }
 

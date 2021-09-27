@@ -8,37 +8,39 @@
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
-
     <application
         android:allowBackup="true"
+        android:hardwareAccelerated="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/noice_notes"
+        android:largeHeap="true"
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:hardwareAccelerated="false"
-        android:largeHeap="true"
         android:theme="@style/Theme.DIorDNA_Android1">
-
         <activity
-            android:name=".RegisterActivity"  android:exported="true" />
-
+            android:name=".ProfileActivity"
+            android:exported="true" />
         <activity
-            android:name=".CategoryActivity"  android:exported="true" />
-
+            android:name=".RegisterActivity"
+            android:exported="true" />
         <activity
-            android:name=".RecorderActivity"  android:exported="true" />
-
+            android:name=".CategoryActivity"
+            android:exported="true" />
         <activity
-            android:name=".MainActivity"  android:exported="true"
+            android:name=".RecorderActivity"
+            android:exported="true" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-
         <activity
-            android:name=".LoginActivity"  android:exported="true"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-
+            android:name=".LoginActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".SplashActivity"  android:exported="true"
+            android:name=".SplashActivity"
+            android:exported="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -46,7 +48,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

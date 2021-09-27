@@ -223,6 +223,7 @@
 
     </LinearLayout>
 
+    <!--Status Layout-->
     <LinearLayout
         android:id="@+id/statusLayout"
         android:layout_width="220dp"
@@ -232,7 +233,7 @@
         android:background="@color/textBackgroundColor"
         android:layout_marginBottom="30dp"
         app:layout_constraintTop_toBottomOf="@+id/functionLayout"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigationLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" >
 
@@ -251,5 +252,67 @@
             android:paddingRight="10dp" />
     </LinearLayout>
 
+    <!--Created navigation bottom using button-->
+    <LinearLayout
+        android:id="@+id/bottomNavigationLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/backgroundColor"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <!--Home Button-->
+        <Button
+            android:id="@+id/homeBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:drawableTop="@drawable/home_outline_icon"
+            android:paddingTop="10dp"
+            android:text="Home"
+            android:textColor="@color/themeColor"
+            android:textSize="10dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!--Note Button-->
+        <Button
+            android:id="@+id/noteBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:drawableTop="@drawable/mic_icon"
+            android:paddingTop="10dp"
+            android:text="@string/note"
+            android:textColor="@color/themeColor"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/profile" />
+
+        <!--Profile Button-->
+        <Button
+            android:id="@+id/profileBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:drawableTop="@drawable/profile_icon"
+            android:paddingTop="8dp"
+            android:text="@string/profile"
+            android:textColor="@color/themeColor"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/info" />
+
+        <!--Community Button-->
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
