@@ -78,8 +78,8 @@
     <!--    Image ICON-->
     <ImageView
         android:id="@+id/icon"
-        android:layout_width="239dp"
-        android:layout_height="151dp"
+        android:layout_width="200dp"
+        android:layout_height="119dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="4dp"
         app:layout_constraintBottom_toTopOf="@+id/recordBtn"
@@ -91,16 +91,18 @@
     <!--    RECORD BUTTON-->
     <Button
         android:id="@+id/recordBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="25dp"
+        android:layout_width="161dp"
+        android:layout_height="114dp"
+        android:layout_marginBottom="20dp"
         android:backgroundTint="@color/backgroundColor"
         android:drawableTop="@drawable/mic_icon"
         android:text="@string/create_note"
         android:textColor="@color/themeColor"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-         />
+        app:layout_constraintStart_toStartOf="parent" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,28 +1,30 @@
 package com.example.diordna_android1
 
 import android.Manifest
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.drawable.Drawable
 import android.media.AudioManager
-import android.media.MediaPlayer
 import android.media.MediaRecorder
 import android.media.ToneGenerator.MAX_VOLUME
 import android.net.Uri
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.provider.Settings
+import android.util.Log
 import android.widget.RadioButton
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import com.example.diordna_android1.R.drawable.*
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_recorder.*
 import java.io.File
 import java.io.IOException
 import kotlin.math.ln
-import kotlin.math.log
 
 class RecorderActivity : AppCompatActivity() {
 
@@ -32,6 +34,7 @@ class RecorderActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recorder)
+
 
         // If SDK Version is greater than R, then this function is called to get access
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -51,7 +54,7 @@ class RecorderActivity : AppCompatActivity() {
         //Buttons are disabled at start
         start.isEnabled = false  //using the synthetic module
         stop.isEnabled = false  //using the synthetic module
-        play.isEnabled = false  //using the synthetic module
+        pause.isEnabled = false  //using the synthetic module
 
         //Checking if record audio permission is given or not
         if(ActivityCompat.checkSelfPermission(
@@ -80,6 +83,7 @@ class RecorderActivity : AppCompatActivity() {
 
             try {
                 mr.prepare()                                                //The recorder to begin capturing and encoding data
+
             } catch ( e: IOException){
                 e.printStackTrace()                                         //printStackTrace() is very useful in diagnosing exceptions. For example, if one out of five methods in your code cause an exception, printStackTrace() will pinpoint the exact line in which the method raised the exception.
                 Toast.makeText(this, "Recording is not saved", Toast.LENGTH_SHORT ).show()
@@ -87,26 +91,54 @@ class RecorderActivity : AppCompatActivity() {
             }
 
             mr.start()                                                      //Begins capturing and encoding data to the file specified with setOutputFile()
-            stop.isEnabled = true
+            Toast.makeText(this, "Recording Started", Toast.LENGTH_SHORT).show()
             start.isEnabled = false
+            stop.isEnabled = true
+            pause.isEnabled = true
+        }
+
+        //Play Recording
+        pause.setOnClickListener{
+
+            if(pause.text.toString() == "PAUSE"){
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    try{
+                        mr.pause()
+                    }catch (e:IllegalStateException){
+                        Log.i(TAG, "PauseClicked: Can't pause")
+                    }
+                    pause.text = getString(R.string.resume)
+                    changePauseToResume()
+                }
+                else{
+                    pause.setCompoundDrawablesRelativeWithIntrinsicBounds(null,null,null,null)
+                    pause.text = getString(R.string.upgrade_nougat)
+                    pause.textSize = 12F
+                }
+
+            }
+
+            else if(pause.text.toString() == "RESUME"){
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    Log.i(TAG, "PauseClicked: resume")
+                    mr.resume()
+                    changeResumeToPause()
+                }
+            }
+
         }
 
         //Code for Stop Recording
         stop.setOnClickListener{
             mr.stop()                                                       // It stops recording
+            Toast.makeText(this, "Recording Saved ${pause.text}", Toast.LENGTH_SHORT).show()
             start.isEnabled = true
+            pause.isEnabled = false
             stop.isEnabled = false
-            play.isEnabled = true
+            changeResumeToPause()
+
         }
 
-        //Play Recording
-        play.setOnClickListener{
-            var mp = MediaPlayer()                                          // Initialising
-            mp.setDataSource(path)                                          // Calling from DataSource
-            mp.prepare()                                                    // The recorder to begin capturing and encoding data
-            mp.setVolume(volumeRange(),volumeRange())                       //It will set Volume Range while playing
-            mp.start()                                                      // Begins capturing and encoding data to the file specified with setOutputFile()
-        }
     }
 
     // Function for getting permission which is overridden to make start button enabled
@@ -120,6 +152,22 @@ class RecorderActivity : AppCompatActivity() {
             start.isEnabled = true        //if record audio permission is given, then enable the start button
     }
 
+    //It changes Resume Icon and text to Pause
+    private fun changeResumeToPause() {
+        val imageRes = resources.getIdentifier("@drawable/red_pause_icon", null, packageName)
+        val pauseIcon= resources.getDrawable(imageRes)
+        pause.setCompoundDrawablesRelativeWithIntrinsicBounds(null,null,null,null)
+        pause.setCompoundDrawablesRelativeWithIntrinsicBounds(null,pauseIcon,null,null)
+        pause.text = getString(R.string.pause)
+    }
+
+    //It changes Pause Icon and text to Resume
+    private fun changePauseToResume() {
+        val imageRes = resources.getIdentifier("@drawable/red_resume_icon", null, packageName)
+        val resumeIcon: Drawable? = resources.getDrawable(imageRes)
+        pause.setCompoundDrawablesRelativeWithIntrinsicBounds(null,resumeIcon,null,null)
+        pause.text = getString(R.string.resume)
+    }
 
     // Function for getting the recorded path
     private fun getRecordingFilePath(): String {
@@ -149,7 +197,6 @@ class RecorderActivity : AppCompatActivity() {
     private fun radioSelection(): String {
         val selected = labelRadioBtn.checkedRadioButtonId
         val btn = findViewById<RadioButton>(selected)
-        Toast.makeText(this, btn.text, Toast.LENGTH_SHORT).show()
         return btn.text.toString()
     }
 
@@ -171,13 +218,5 @@ class RecorderActivity : AppCompatActivity() {
 
     }
 
-    //It returns the current Volume to media player
-    private fun volumeRange(): Float {
-        val audioManager = getSystemService(AUDIO_SERVICE) as AudioManager
-        val soundVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)
-
-        // Get the device music maximum volume level
-        return ( (1 - ln( MAX_VOLUME.toFloat() - soundVolume.toFloat() )) / ln( MAX_VOLUME.toFloat() ))
-    }
 
 }

@@ -11,4 +11,5 @@
     <color name="backgroundColor">#F0F0F0</color>
     <color name="themeTextColor">#282828</color>
     <color name="textBackgroundColor">#D6DAFC</color>
+    <color name="record_text_color">#B03F3F</color>
 </resources>

@@ -18,10 +18,19 @@
     <string name="record">RECORD</string>
     <string name="create_note">Create Note</string>
     <string name="previous_notes">PREVIOUS NOTES</string>
-    <string name="note_title">Note Title</string>
     <string name="last_modified_date">Last Modified Date</string>
     <string name="play">Play</string>
     <string name="username">Username</string>
     <string name="username_1">Username</string>
     <string name="email">Email</string>
+    <string name="create_notes">CREATE NOTES</string>
+    <string name="priority">Priority</string>
+    <string name="note_title">Note Title</string>
+    <string name="record_1">Record</string>
+    <string name="save">SAVE</string>
+    <string name="pause">PAUSE</string>
+    <string name="resume">RESUME</string>
+    <string name="upgrade_nougat">Upgrade to Nougat</string>
+    <string name="give_title_to_your_note">Give Title To Your Note</string>
+
 </resources>
