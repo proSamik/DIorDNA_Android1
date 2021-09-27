@@ -23,7 +23,7 @@
     <string name="username">Username</string>
     <string name="username_1">Username</string>
     <string name="email">Email</string>
-    <string name="create_notes">CREATE NOTES</string>
+    <string name="create_notes">CREATE NOTE</string>
     <string name="priority">Priority</string>
     <string name="note_title">Note Title</string>
     <string name="record_1">Record</string>
@@ -31,6 +31,9 @@
     <string name="pause">PAUSE</string>
     <string name="resume">RESUME</string>
     <string name="upgrade_nougat">Upgrade to Nougat</string>
-    <string name="give_title_to_your_note">Give Title To Your Note</string>
+    <string name="give_title_to_your_note">Title</string><string name="no_name">no_Name</string>
+    <string name="status">Status:</string>
+    <string name="start_recording_ioexception">Recording didn\'t Start</string>
+    <string name="recording">Recording</string>
 
 </resources>

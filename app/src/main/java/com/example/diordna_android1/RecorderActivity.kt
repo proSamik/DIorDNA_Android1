@@ -1,40 +1,43 @@
 package com.example.diordna_android1
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
-import android.media.AudioManager
 import android.media.MediaRecorder
-import android.media.ToneGenerator.MAX_VOLUME
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
+import android.os.SystemClock
 import android.provider.Settings
 import android.util.Log
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import com.example.diordna_android1.R.drawable.*
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_recorder.*
 import java.io.File
 import java.io.IOException
-import kotlin.math.ln
 
 class RecorderActivity : AppCompatActivity() {
 
-    private lateinit var mr: MediaRecorder           // creating mr as MediaRecorder
-    private lateinit var path: String               // Path
+    private lateinit var mr: MediaRecorder           // Creating mr as MediaRecorder
+    private lateinit var path: String                // Path Address
+    private var running = false                      // Created to check if the chronometer is running or not
+    private var pauseOFFset = 0L                     // It is used to subtract the lag in chronometer
+    private var mrRunning = false                    // It will check if mediaPlayer is running or not
+    private var statusTextMessage = "Status: "
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recorder)
 
+        chronometer.base = SystemClock.elapsedRealtime()
 
         // If SDK Version is greater than R, then this function is called to get access
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -73,72 +76,20 @@ class RecorderActivity : AppCompatActivity() {
 
         //code for start recording
         start.setOnClickListener{
-
-            mr.setAudioSource(MediaRecorder.AudioSource.MIC)                //This is the most important part
-            mr.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)        //Output Format
-            mr.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB)           //Audio Encoder
-
-            path = getRecordingFilePath()                               // Initialising the path to store the recording
-            mr.setOutputFile(path)                                          //Output File path
-
-            try {
-                mr.prepare()                                                //The recorder to begin capturing and encoding data
-
-            } catch ( e: IOException){
-                e.printStackTrace()                                         //printStackTrace() is very useful in diagnosing exceptions. For example, if one out of five methods in your code cause an exception, printStackTrace() will pinpoint the exact line in which the method raised the exception.
-                Toast.makeText(this, "Recording is not saved", Toast.LENGTH_SHORT ).show()
-                return@setOnClickListener
-            }
-
-            mr.start()                                                      //Begins capturing and encoding data to the file specified with setOutputFile()
-            Toast.makeText(this, "Recording Started", Toast.LENGTH_SHORT).show()
-            start.isEnabled = false
-            stop.isEnabled = true
-            pause.isEnabled = true
+            startRecording()
+            mrRunning = true
         }
 
-        //Play Recording
+        //Pause or Resume Recording
         pause.setOnClickListener{
-
-            if(pause.text.toString() == "PAUSE"){
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    try{
-                        mr.pause()
-                    }catch (e:IllegalStateException){
-                        Log.i(TAG, "PauseClicked: Can't pause")
-                    }
-                    pause.text = getString(R.string.resume)
-                    changePauseToResume()
-                }
-                else{
-                    pause.setCompoundDrawablesRelativeWithIntrinsicBounds(null,null,null,null)
-                    pause.text = getString(R.string.upgrade_nougat)
-                    pause.textSize = 12F
-                }
-
-            }
-
-            else if(pause.text.toString() == "RESUME"){
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    Log.i(TAG, "PauseClicked: resume")
-                    mr.resume()
-                    changeResumeToPause()
-                }
-            }
-
+            pauseRecording()
         }
 
         //Code for Stop Recording
         stop.setOnClickListener{
-            mr.stop()                                                       // It stops recording
-            Toast.makeText(this, "Recording Saved ${pause.text}", Toast.LENGTH_SHORT).show()
-            start.isEnabled = true
-            pause.isEnabled = false
-            stop.isEnabled = false
-            changeResumeToPause()
-
+            stopRecording()
+            mrRunning = false
         }
-
     }
 
     // Function for getting permission which is overridden to make start button enabled
@@ -152,11 +103,129 @@ class RecorderActivity : AppCompatActivity() {
             start.isEnabled = true        //if record audio permission is given, then enable the start button
     }
 
+    //Start Chronometer
+    private fun startChronometer(){
+        if(!running){
+            chronometer.base = SystemClock.elapsedRealtime() - pauseOFFset
+            chronometer.start()
+            running = true
+        }
+    }
+
+    //Pause Chronometer
+    private fun pauseChronometer(){
+        if(running){
+            pauseOFFset = SystemClock.elapsedRealtime() - chronometer.base
+            chronometer.stop()
+            running = false
+        }
+    }
+
+    //Reset Chronometer
+    private fun resetChronometer(){
+        //elapsedRealtime always sets base to 0
+        chronometer.stop()
+        chronometer.base = SystemClock.elapsedRealtime()
+        pauseOFFset = 0
+    }
+
+    //Start Recording function
+    @SuppressLint("SetTextI18n")
+    private fun startRecording() {
+
+        if (validation()) {
+            mr.setAudioSource(MediaRecorder.AudioSource.MIC)                //This is the most important part
+            mr.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)        //Output Format
+            mr.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB)           //Audio Encoder
+
+            path = getRecordingFilePath()                               // Initialising the path to store the recording
+            mr.setOutputFile(path)                                          //Output File path
+
+            try {
+                mr.prepare()                                                //The recorder to begin capturing and encoding data
+
+            } catch ( e: IOException){
+                e.printStackTrace()                                         //printStackTrace() is very useful in diagnosing exceptions. For example, if one out of five methods in your code cause an exception, printStackTrace() will pinpoint the exact line in which the method raised the exception.
+                statusText.text = statusTextMessage + getString(R.string.start_recording_ioexception)
+            }
+
+            mr.start()                                                      //Begins capturing and encoding data to the file specified with setOutputFile()
+            startChronometer()
+            statusText.text = statusTextMessage + "Recording"
+            start.isEnabled = false
+            stop.isEnabled = true
+            pause.isEnabled = true
+        }
+        else{
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                noteTitleEditText.isFocusable = true
+                noteTitleEditText.isFocusableInTouchMode = true
+            }
+        }
+    }
+
+    //It will Pause all the recording
+    @SuppressLint("SetTextI18n")
+    private fun pauseRecording() {
+        if(pause.text.toString() == "PAUSE"){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+
+                try{
+                    mr.pause()
+                    pauseChronometer()
+                }catch (e:IllegalStateException){
+                    statusText.text = statusTextMessage + "Recording can't be paused"
+                }
+
+                statusText.text = statusTextMessage + "Recording Paused"
+                pause.text = getString(R.string.resume)
+                changePauseToResume()
+            }
+            else{
+                pause.setCompoundDrawablesRelativeWithIntrinsicBounds(null,null,null,null)
+                pause.text = getString(R.string.upgrade_nougat)
+                pause.textSize = 12F
+                statusText.text = statusTextMessage + "Only Android Nougat users can use this feature"
+            }
+        }
+
+        else if(pause.text.toString() == "RESUME"){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                Log.i(TAG, "PauseClicked: resume")
+                mr.resume()
+                startChronometer()
+                changeResumeToPause()
+                statusText.text = statusTextMessage + "Recording"
+            }
+        }
+    }
+
+    //Stop Recording function
+    @SuppressLint("SetTextI18n")
+    private fun stopRecording() {
+        mr.stop()                                                       // It stops recording
+        start.isEnabled = true
+        pause.isEnabled = false
+        stop.isEnabled = false
+        changeResumeToPause()
+        resetChronometer()
+        statusText.text = statusTextMessage + "Note Saved"
+        noteTitleEditText.text.clear()
+    }
+
+    //It will check weather the Note title is empty or not
+    private fun validation(): Boolean {
+        if(noteTitleEditText.text.isNullOrEmpty()){
+            noteTitleEditText?.error = "Title can't be empty"
+            return false
+        }
+        return true
+    }
+
     //It changes Resume Icon and text to Pause
     private fun changeResumeToPause() {
         val imageRes = resources.getIdentifier("@drawable/red_pause_icon", null, packageName)
         val pauseIcon= resources.getDrawable(imageRes)
-        pause.setCompoundDrawablesRelativeWithIntrinsicBounds(null,null,null,null)
         pause.setCompoundDrawablesRelativeWithIntrinsicBounds(null,pauseIcon,null,null)
         pause.text = getString(R.string.pause)
     }
@@ -218,5 +287,12 @@ class RecorderActivity : AppCompatActivity() {
 
     }
 
+    //On stopping the activity the note will save automatically
+    override fun onStop(){
+        super.onStop()
+        if(mrRunning){
+            stopRecording()
+        }
+    }
 
 }
