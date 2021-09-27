@@ -17,7 +17,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/main_icon" />
+        app:srcCompat="@drawable/main_icon"
+        android:contentDescription="@string/home" />
 
     <!--    RECORD BUTTON-->
     <Button
@@ -81,8 +82,8 @@
                 android:layout_height="100dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:backgroundTint="@color/themeColor"
                 android:text="@string/urgent"
+                android:backgroundTint="@color/themeColor"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 
@@ -93,8 +94,8 @@
                 android:layout_height="100dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:backgroundTint="@color/themeColor"
                 android:text="@string/important"
+                android:backgroundTint="@color/themeColor"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 
@@ -116,8 +117,8 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="10dp"
-                android:backgroundTint="@color/themeColor"
                 android:text="@string/normal"
+                android:backgroundTint="@color/themeColor"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 
@@ -139,18 +140,20 @@
         <!--Home Button-->
         <Button
             android:id="@+id/homeBtn"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/transparent"
             android:drawableTop="@drawable/home_icon"
             android:padding="5dp"
-            android:text="Home"
-            android:textColor="@color/themeColor"
-            android:textSize="10dp"
+            android:text="@string/home"
+            android:textColor="#3D5AFE"
+            android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="TextContrastCheck" />
 
         <!--Note Button-->
         <Button
@@ -162,11 +165,12 @@
             android:drawableTop="@drawable/mic_outline_icon"
             android:padding="5dp"
             android:text="@string/note"
-            android:textColor="@color/themeColor"
-            android:textSize="10sp"
+            android:textColor="#3D5AFE"
+            android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/profile" />
+            app:layout_constraintStart_toEndOf="@+id/profile"
+            style="?android:attr/buttonBarButtonStyle" />
 
         <!--Profile Button-->
         <Button
@@ -178,11 +182,13 @@
             android:drawableTop="@drawable/profile_icon"
             android:padding="5dp"
             android:text="@string/profile"
-            android:textColor="@color/themeColor"
-            android:textSize="10sp"
+            android:textColor="#3D5AFE"
+            android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/info" />
+            app:layout_constraintStart_toEndOf="@+id/info"
+            tools:ignore="TextContrastCheck"
+            style="?android:attr/buttonBarButtonStyle" />
 
         <!--Community Button-->
 

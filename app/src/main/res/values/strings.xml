@@ -38,5 +38,9 @@
     <string name="recording">Recording</string>
     <string name="profile">Profile</string>
     <string name="note">Note</string>
+    <string name="home">Home</string>
+    <string name="sign_out">SIGN OUT</string>
+    <string name="hi_user">Hi User</string>
+    <string name="password">Password</string>
 
 </resources>

@@ -7,6 +7,78 @@
     android:background="@drawable/activity_login_bg"
     tools:context=".ProfileActivity">
 
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="154dp"
+        android:layout_marginTop="90dp"
+        android:src="@drawable/login_page_icon"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/cardView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- cardView-->
+    <androidx.cardview.widget.CardView
+        android:id="@id/cardView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/backgroundColor"
+        app:layout_constraintTop_toBottomOf="@+id/logo"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigationLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:layout_gravity="center" >
+
+            <!--USERNAME-->
+            <TextView
+                android:id="@+id/userNameText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="20dp"
+                android:background="@color/textBackgroundColor"
+                android:fontFamily="cursive"
+                android:gravity="center"
+                android:minWidth="300dp"
+                android:minHeight="48dp"
+                android:text="@string/hi_user"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@id/signOutBtn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!--SIGN OUT-->
+            <Button
+                android:id="@+id/signOutBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/themeColor"
+                android:text="@string/sign_out"
+                android:textColor="@color/white"
+                android:drawableLeft="@drawable/logout_icon"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/userNameText" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
 
     <!--Created navigation bottom using button-->
     <LinearLayout
@@ -22,18 +94,20 @@
         <!--Home Button-->
         <Button
             android:id="@+id/homeBtn"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/transparent"
             android:drawableTop="@drawable/home_outline_icon"
             android:padding="5dp"
-            android:text="Home"
-            android:textColor="@color/themeColor"
-            android:textSize="10dp"
+            android:text="@string/home"
+            android:textColor="#3D5AFE"
+            android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="TextContrastCheck" />
 
         <!--Note Button-->
         <Button
@@ -45,11 +119,12 @@
             android:drawableTop="@drawable/mic_outline_icon"
             android:padding="5dp"
             android:text="@string/note"
-            android:textColor="@color/themeColor"
-            android:textSize="10sp"
+            android:textColor="#3D5AFE"
+            android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/profile" />
+            app:layout_constraintStart_toEndOf="@+id/profile"
+            style="?android:attr/buttonBarButtonStyle" />
 
         <!--Profile Button-->
         <Button
@@ -61,11 +136,13 @@
             android:drawableTop="@drawable/profile_filled_icon"
             android:padding="5dp"
             android:text="@string/profile"
-            android:textColor="@color/themeColor"
-            android:textSize="10sp"
+            android:textColor="#3D5AFE"
+            android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/info" />
+            app:layout_constraintStart_toEndOf="@+id/info"
+            tools:ignore="TextContrastCheck"
+            style="?android:attr/buttonBarButtonStyle" />
 
         <!--Community Button-->
 

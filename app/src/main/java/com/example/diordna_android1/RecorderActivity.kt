@@ -268,7 +268,7 @@ class RecorderActivity : AppCompatActivity() {
             file.mkdirs()                                                   // if file doesn't exist then make directory
         }
         val fileName = noteTitle()
-        return file.absolutePath + "/" + "$fileName" + ".mp3"                    //return file path
+        return file.absolutePath + "/" + fileName + ".mp3"                    //return file path
     }
 
     //To get the username of the user
@@ -289,19 +289,15 @@ class RecorderActivity : AppCompatActivity() {
     }
 
     //It returns the EditText string
-    private fun noteTitle(): String? {
-        val title: String? = noteTitleEditText.text.toString().trim()
+    private fun noteTitle(): String {
+        val title: String = noteTitleEditText.text.toString().trim()
 
         val currentTimestamp = System.currentTimeMillis().toString()
-
-        if (title ==null){
-            return "$currentTimestamp"
-        }
 
         return if (title != "") {
             title
         } else{
-            "$currentTimestamp"
+            currentTimestamp
         }
 
     }

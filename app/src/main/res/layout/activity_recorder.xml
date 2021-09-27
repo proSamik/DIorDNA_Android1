@@ -12,11 +12,11 @@
         android:id="@+id/createNote"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="70dp"
         android:text="@string/create_notes"
         android:textSize="30sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/noteTitleEditText"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -27,23 +27,25 @@
         android:id="@+id/noteTitleEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/textBackgroundColor"
+        android:drawableStart="@drawable/note_title_updated"
+        android:drawablePadding="20dp"
+        android:gravity="center_vertical"
         android:hint="@string/give_title_to_your_note"
         android:inputType="text"
         android:maxLines="1"
-        android:minHeight="40dp"
-        android:textSize="20sp"
-        android:textColor="@color/record_text_color"
-        android:background="@color/textBackgroundColor"
-        android:drawableLeft="@drawable/note_title"
-        android:paddingHorizontal="5dp"
         android:minWidth="300dp"
-        android:drawablePadding="20dp"
-        android:gravity="center_vertical"
-        android:layout_marginTop="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/createNote"
+        android:minHeight="48dp"
+        android:paddingStart="10dp"
+        android:paddingHorizontal="5dp"
+        android:textColor="@color/record_text_color"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/priorityLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/createNote"
+        android:importantForAutofill="no" />
 
     <!--Priority Layout-->
     <LinearLayout
@@ -185,7 +187,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/labelRadioBtn" />
+            app:layout_constraintTop_toBottomOf="@+id/labelRadioBtn"
+            style="?android:attr/buttonBarButtonStyle" />
 
         <!--Start Button-->
         <Button
@@ -202,7 +205,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/stop"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/labelRadioBtn" />
+            app:layout_constraintTop_toBottomOf="@+id/labelRadioBtn"
+            style="?android:attr/buttonBarButtonStyle" />
 
         <!--Pause Button-->
         <Button
@@ -219,7 +223,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/stop"
-            app:layout_constraintTop_toBottomOf="@+id/labelRadioBtn" />
+            app:layout_constraintTop_toBottomOf="@+id/labelRadioBtn"
+            style="?android:attr/buttonBarButtonStyle" />
 
     </LinearLayout>
 
@@ -249,7 +254,8 @@
             android:textColor="@color/record_text_color"
             android:lines="1"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp" />
+            android:paddingRight="10dp"
+            app:layout_constraintBottom_toTopOf="@id/bottomNavigationLayout" />
     </LinearLayout>
 
     <!--Created navigation bottom using button-->
@@ -266,18 +272,20 @@
         <!--Home Button-->
         <Button
             android:id="@+id/homeBtn"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/transparent"
             android:drawableTop="@drawable/home_outline_icon"
-            android:paddingTop="10dp"
-            android:text="Home"
-            android:textColor="@color/themeColor"
-            android:textSize="10dp"
+            android:padding="5dp"
+            android:text="@string/home"
+            android:textColor="#3D5AFE"
+            android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="TextContrastCheck" />
 
         <!--Note Button-->
         <Button
@@ -287,13 +295,14 @@
             android:layout_weight="1"
             android:background="@android:color/transparent"
             android:drawableTop="@drawable/mic_icon"
-            android:paddingTop="10dp"
+            android:padding="5dp"
             android:text="@string/note"
-            android:textColor="@color/themeColor"
-            android:textSize="10sp"
+            android:textColor="#3D5AFE"
+            android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/profile" />
+            app:layout_constraintStart_toEndOf="@+id/profile"
+            style="?android:attr/buttonBarButtonStyle" />
 
         <!--Profile Button-->
         <Button
@@ -303,13 +312,15 @@
             android:layout_weight="1"
             android:background="@android:color/transparent"
             android:drawableTop="@drawable/profile_icon"
-            android:paddingTop="8dp"
+            android:padding="5dp"
             android:text="@string/profile"
-            android:textColor="@color/themeColor"
-            android:textSize="10sp"
+            android:textColor="#3D5AFE"
+            android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/info" />
+            app:layout_constraintStart_toEndOf="@+id/info"
+            tools:ignore="TextContrastCheck"
+            style="?android:attr/buttonBarButtonStyle" />
 
         <!--Community Button-->
 
