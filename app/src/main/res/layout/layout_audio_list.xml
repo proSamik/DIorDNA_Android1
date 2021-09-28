@@ -109,10 +109,50 @@
                 android:textColor="@color/themeColor"
                 android:textSize="12sp" />
 
-
-
         </LinearLayout>
 
+        <!--URL Link-->
+        <LinearLayout
+            android:id="@+id/urlLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp"
+            android:gravity="center" >
+
+            <!--SHARE-->
+            <ImageButton
+                android:id="@+id/shareButton"
+                android:src="@drawable/share_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:background="@android:color/transparent" />
+
+            <!--URL TextView-->
+            <TextView
+                android:id="@+id/urlTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="280dp"
+                android:background="@color/theme_white_background"
+                android:textColorHighlight="@color/white"
+                android:text="@string/url"
+                android:maxLines="1"
+                android:textColor="@color/themeTextColor"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="5dp"
+                android:textSize="15sp" />
+
+            <!--COPY-->
+            <ImageButton
+                android:id="@+id/copyButton"
+                android:src="@drawable/copy_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:background="@android:color/transparent" />
+        </LinearLayout>
 
     </LinearLayout>
 

@@ -1,7 +1,10 @@
 package com.example.diordna_android1
 
 import android.annotation.SuppressLint
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.ContentValues.TAG
+import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import android.media.AudioManager
@@ -12,14 +15,13 @@ import android.os.Environment
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
-import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.net.toUri
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import kotlinx.android.synthetic.main.activity_category.*
 import java.io.File
 import java.text.SimpleDateFormat
@@ -87,7 +89,6 @@ class CategoryActivity : AppCompatActivity() {
             val myview = layoutInflater.inflate(R.layout.layout_audio_list, null)
 
             val audio = myListAudio[position]
-            Log.i(TAG, "loadAudioFiles: ${audio.Title}")
 
             //Stop Button
             val stopBtn = myview.findViewById<Button>(R.id.stopButton)
@@ -95,6 +96,15 @@ class CategoryActivity : AppCompatActivity() {
 
             //Delete button
             val deleteBtn = myview.findViewById<Button>(R.id.deleteButton)
+
+            //Share Button
+            val shareBtn = myview.findViewById<ImageButton>(R.id.shareButton)
+
+            //URL TextView
+            val urlText = myview.findViewById<TextView>(R.id.urlTextView)
+
+            //Copy Button
+            val copyBtn = myview.findViewById<ImageButton>(R.id.copyButton)
 
             //Serial No. of the song
             val serialNo = myview.findViewById<TextView>(R.id.slno)
@@ -196,6 +206,49 @@ class CategoryActivity : AppCompatActivity() {
 
                 //It will refresh the Activity
                 recreate()
+            }
+
+            //Copy Button function
+            copyBtn.setOnClickListener {
+
+                if (urlText.text.toString() != "URL") {
+                    val textToCopy = urlText.text
+
+                    val clipboardManager =
+                            getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                    val clipData = ClipData.newPlainText("text", textToCopy)
+
+                    clipboardManager.setPrimaryClip(clipData)
+
+                    Toast.makeText(applicationContext, "URL Copied", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            //Share Button function
+            shareBtn.setOnClickListener{
+//
+//                var pd = ProgressDialog(applicationContext)
+//                pd.setTitle("Uploading")
+//                pd.show()
+
+                val audioRefrence = Firebase.storage.reference.child("audio/recording.mp3")
+                audioRefrence.putFile(audio.SongPath!!.toUri())
+                    .addOnSuccessListener {p0->
+//                        pd.dismiss()
+                        Toast.makeText(applicationContext,"File Uploaded", Toast.LENGTH_SHORT).show()
+                    }
+                    .addOnFailureListener{ p0->
+//                        pd.dismiss()
+                        Toast.makeText(applicationContext,p0.message, Toast.LENGTH_SHORT).show()
+                    }
+                    .addOnCompleteListener { p0 ->
+                        if(p0.isSuccessful){
+                            val downloadURl = p0.result.toString()
+                            urlText.text = downloadURl
+                        }
+
+                    }
+
             }
             return myview
         }
