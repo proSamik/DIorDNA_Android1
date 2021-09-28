@@ -42,5 +42,8 @@
     <string name="sign_out">SIGN OUT</string>
     <string name="hi_user">Hi User</string>
     <string name="password">Password</string>
+    <string name="_1">1</string>
+    <string name="delete">Delete</string>
+    <string name="stop_1">STOP</string>
 
 </resources>

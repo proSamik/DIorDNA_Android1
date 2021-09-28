@@ -3,9 +3,9 @@ package com.example.diordna_android1
 import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.content.pm.PackageManager
+import android.graphics.drawable.Drawable
 import android.media.AudioManager
 import android.media.MediaPlayer
-import android.media.ToneGenerator
 import android.media.ToneGenerator.MAX_VOLUME
 import android.os.Bundle
 import android.os.Environment
@@ -18,6 +18,7 @@ import androidx.core.app.ActivityCompat
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_category.*
+import kotlinx.android.synthetic.main.layout_audio_list.*
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
@@ -84,31 +85,94 @@ class CategoryActivity : AppCompatActivity() {
             val myview = layoutInflater.inflate(R.layout.layout_audio_list, null)
 
             val audio = myListAudio[position]
+            Log.i(TAG, "loadAudioFiles: ${audio.Title}")
+
+            val stopBtn = myview.findViewById<Button>(R.id.stopButton)
+            stopBtn.isEnabled = false
+
+            //Title of the song
             val textTitle = myview.findViewById<TextView>(R.id.noteTitle)
             textTitle.text = audio.Title
 
+            //Date of the song
             val textDate = myview.findViewById<TextView>(R.id.lastModifiedDate)
             textDate.text = audio.DateModified
 
-            val playBtn = myview.findViewById<ImageButton>(R.id.playButton)
+            //Play Button and their functions
+            val playBtn = myview.findViewById<Button>(R.id.playButton)
             playBtn.setOnClickListener {
-//                if(playBtn.text == "STOP"){
-//                    mp!!.stop()
-//                    playBtn.text = "PLAY"
-//                }
-//                else{
+
+                //When user wants to resume
+                if(playBtn.text.toString() == "PAUSE"){
+                        try {
+                            mp!!.pause()
+                        }catch (e:IllegalStateException){
+                            Toast.makeText(applicationContext,
+                                "Can't be paused",
+                                Toast.LENGTH_SHORT).show()
+                        }
+                    //changePauseToResume()
+                    val imageRes = resources.getIdentifier("@drawable/play_icon", null, packageName)
+                    val resumeIcon: Drawable? = resources.getDrawable(imageRes)
+                    playBtn.setCompoundDrawablesRelativeWithIntrinsicBounds(null,resumeIcon,null,null)
+                    playBtn.text = "RESUME"
+
+                }
+
+                //when user wants to pause
+                else if(playBtn.text.toString() == "RESUME") {
+                        mp!!.start()
+                    //changeResumeToPause()
+                    val imageRes = resources.getIdentifier("@drawable/pause_blue_icon", null, packageName)
+                    val pauseIcon= resources.getDrawable(imageRes)
+                    playBtn.setCompoundDrawablesRelativeWithIntrinsicBounds(null,pauseIcon,null,null)
+                    playBtn.text = "PAUSE"
+                }
+
+                //When user wants to start
+                else{
                     mp = MediaPlayer()
                     try{
                         mp!!.setDataSource(audio.SongPath)
                         mp!!.prepare()
-                        mp!!.setVolume(volumeRange(),volumeRange())
+                        mp!!.setVolume(2*volumeRange(),2*volumeRange())
                         mp!!.start()
-//                        playBtn.text = "STOP"
-                    } catch (e: Exception) {}
-//                }
+                        stopBtn.isEnabled = true
+
+                        //changeResumeToPause()
+                        val imageRes = resources.getIdentifier("@drawable/pause_blue_icon", null, packageName)
+                        val pauseIcon= resources.getDrawable(imageRes)
+                        playBtn.setCompoundDrawablesRelativeWithIntrinsicBounds(null,pauseIcon,null,null)
+                        playBtn.text = "PAUSE"
+
+                    } catch (e: Exception) {
+                        Toast.makeText(applicationContext,
+                            "Audio Can't be played",
+                            Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                mp!!.setOnCompletionListener {
+                    //changePauseToStart()
+                    val imageRes = resources.getIdentifier("@drawable/play_icon", null, packageName)
+                    val resumeIcon: Drawable? = resources.getDrawable(imageRes)
+                    playBtn.setCompoundDrawablesRelativeWithIntrinsicBounds(null,resumeIcon,null,null)
+                    playBtn.text = "START"
+                }
             }
 
-            val deleteBtn = myview.findViewById<ImageButton>(R.id.deleteButton)
+            //Stop Button function
+            stopBtn.setOnClickListener {
+                mp!!.stop()
+                //changePauseToStart()
+                val imageRes = resources.getIdentifier("@drawable/play_icon", null, packageName)
+                val resumeIcon: Drawable? = resources.getDrawable(imageRes)
+                playBtn.setCompoundDrawablesRelativeWithIntrinsicBounds(null,resumeIcon,null,null)
+                playBtn.text = "START"
+            }
+
+            //Delete Button function
+            val deleteBtn = myview.findViewById<Button>(R.id.deleteButton)
             deleteBtn.setOnClickListener {
                 //TODO: Make a function to delete
             }
@@ -116,6 +180,7 @@ class CategoryActivity : AppCompatActivity() {
         }
     }
 
+    //It will load audio files
     private fun loadAudioFiles() {
 
         val userName: String = firebaseUserName()
@@ -146,9 +211,10 @@ class CategoryActivity : AppCompatActivity() {
         }
 
         adapter = MyAudioAdapter(audioList)
-        val listViewOfAudio: ListView = findViewById<ListView>(R.id.audioView)
-        listViewOfAudio.adapter = adapter
+        audioView.adapter = adapter
+        Log.i(TAG, "loadAudioFiles: Again Successful till here")
     }
+
 
     //To get the username of the user
     private fun firebaseUserName(): String {
@@ -162,7 +228,7 @@ class CategoryActivity : AppCompatActivity() {
 
     private fun convertLongToTime(time: Long): String {
         val date = Date(time)
-        val format = SimpleDateFormat("yyyy.MM.dd HH:mm")
+        val format = SimpleDateFormat("dd.MM.yyyy HH:mm")
         return format.format(date)
     }
 

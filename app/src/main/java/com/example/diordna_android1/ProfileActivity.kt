@@ -14,6 +14,12 @@ class ProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
 
+        //Check if User exists
+        if(Firebase.auth.currentUser == null){
+            val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
+        }
+
         //Code for UserName
         userNameText.text = "Hi ${ firebaseUserName() }"
 
@@ -49,5 +55,23 @@ class ProfileActivity : AppCompatActivity() {
             name = user.displayName.toString()
         }
         return name
+    }
+
+    override fun onPause() {
+        super.onPause()
+        //Check if User exists
+        if(Firebase.auth.currentUser == null){
+            val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        //Check if User exists
+        if(Firebase.auth.currentUser == null){
+            val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

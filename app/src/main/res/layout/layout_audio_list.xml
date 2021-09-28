@@ -2,78 +2,112 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="2dp"
     xmlns:app ="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="25dp"
+    app:cardCornerRadius="15dp"
     app:cardUseCompatPadding="true"
-    app:cardBackgroundColor="#D1DBD8" >
+    app:cardBackgroundColor="@color/textBackgroundColor" >
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:id="@+id/noteCategoryLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="8dp">
+        android:orientation="vertical"
+        android:paddingTop="10dp"
+        android:gravity="center_vertical">
 
-        <!--        TEXT VIEW LINEAR LAYOUT-->
+        <!-- Title Name Layout -->
         <LinearLayout
-            android:layout_width="200dp"
-            android:layout_height="76dp"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:padding="05dp">
+            android:id="@+id/nameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical" >
 
-            <!--            Note Title-->
+            <!--Sl No-->
+            <TextView
+                android:id="@+id/slno"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/_1"
+                android:minWidth="20dp"
+                android:textSize="18sp"
+                android:textColor="@color/themeTextColor"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="20dp" />
+
+            <!--Note Title-->
             <TextView
                 android:id="@+id/noteTitle"
-                android:layout_width="305dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/note_title"
-                android:textAlignment="center"
-                android:textSize="20sp" />
+                android:minWidth="195dp"
+                android:textSize="18sp"
+                android:textColor="@color/themeTextColor"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="10dp" />
 
-            <!--            Last Modified Date-->
+            <!--Last Modified Date-->
             <TextView
                 android:id="@+id/lastModifiedDate"
-                android:layout_width="304dp"
-                android:layout_height="39dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="100dp"
                 android:text="@string/last_modified_date"
-                android:textAlignment="center"
+                android:textAlignment="viewEnd"
+                android:textColor="@color/themeTextColor"
+                android:layout_marginRight="10dp"
                 android:textSize="15sp" />
 
         </LinearLayout>
 
-        <!--        IMAGEVIEW BUTTONS LAYOUT-->
+        <!--Function Layout-->
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:id="@+id/functionLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginLeft="1dp"
-            android:layout_marginRight="20dp" >
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp"
+            android:gravity="center" >
 
             <!--            PLAY BUTTON-->
-            <ImageButton
+            <Button
                 android:id="@+id/playButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
-                android:background="@drawable/button_back"
-                android:src="@drawable/play"
+                android:drawableTop="@drawable/play_icon"
+                android:background="@android:color/transparent"
                 android:text="@string/play"
-                android:textColor="#FFF"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textColor="@color/themeColor"
+                android:textSize="12sp" />
 
-            <!--            DELETE-->
-            <ImageButton
+            <!--STOP-->
+            <Button
+                android:id="@+id/stopButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:drawableTop="@drawable/stop_icon"
+                android:background="@android:color/transparent"
+                android:text="@string/stop"
+                android:textColor="@color/themeColor"
+                android:textSize="12sp" />
+
+            <!--DELETE-->
+            <Button
                 android:id="@+id/deleteButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
                 android:layout_weight="0"
-                android:background="@drawable/button_back"
-                android:src="@drawable/delete"
-                android:textColor="#FFF"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:drawableTop="@drawable/delete"
+                android:background="@android:color/transparent"
+                android:text="@string/delete"
+                android:textColor="@color/themeColor"
+                android:textSize="12sp" />
+
+
 
         </LinearLayout>
 

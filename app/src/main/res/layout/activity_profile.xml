@@ -116,7 +116,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:drawableTop="@drawable/mic_outline_icon"
+            android:drawableTop="@drawable/add_mic_outline"
             android:padding="5dp"
             android:text="@string/note"
             android:textColor="#3D5AFE"
