@@ -135,6 +135,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:minWidth="280dp"
+                android:maxWidth="300dp"
                 android:background="@color/theme_white_background"
                 android:textColorHighlight="@color/white"
                 android:text="@string/url"

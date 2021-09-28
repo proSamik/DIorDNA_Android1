@@ -3,13 +3,13 @@ package com.example.diordna_android1
 import android.annotation.SuppressLint
 import android.content.ClipData
 import android.content.ClipboardManager
-import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import android.media.AudioManager
 import android.media.MediaPlayer
 import android.media.ToneGenerator.MAX_VOLUME
+import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.util.Log
@@ -18,7 +18,6 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.net.toUri
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
@@ -34,6 +33,9 @@ class CategoryActivity : AppCompatActivity() {
     lateinit var message: String
     var mp: MediaPlayer? = null
     var adapter : MyAudioAdapter? = null
+    companion object{
+        private const val TAG = "CategoryActivity"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,6 +66,7 @@ class CategoryActivity : AppCompatActivity() {
             loadAudioFiles()
     }
 
+    //Creating Custom Adapter for listView
     inner class MyAudioAdapter : BaseAdapter {
 
         var myListAudio = ArrayList<AudioInfo>()
@@ -76,19 +79,22 @@ class CategoryActivity : AppCompatActivity() {
             return myListAudio.size
         }
 
+        //It will get the item
         override fun getItem(position: Int): Any {
             return myListAudio[position]
         }
 
+        //It will get the item ID
         override fun getItemId(position: Int): Long {
             return position.toLong()
         }
 
+        //All the view related function written here
         @SuppressLint("SetTextI18n", "InflateParams", "ViewHolder")
         override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
             val myview = layoutInflater.inflate(R.layout.layout_audio_list, null)
 
-            val audio = myListAudio[position]
+            val audio = myListAudio[position]           //Creating Object of each element
 
             //Stop Button
             val stopBtn = myview.findViewById<Button>(R.id.stopButton)
@@ -152,7 +158,7 @@ class CategoryActivity : AppCompatActivity() {
                 else{
                     mp = MediaPlayer()
                     try{
-                        mp!!.setDataSource(audio.SongPath)
+                        mp!!.setDataSource(audio.audioPath)
                         mp!!.prepare()
                         mp!!.setVolume(2*volumeRange(),2*volumeRange())
                         mp!!.start()
@@ -226,30 +232,36 @@ class CategoryActivity : AppCompatActivity() {
 
             //Share Button function
             shareBtn.setOnClickListener{
-//
-//                var pd = ProgressDialog(applicationContext)
-//                pd.setTitle("Uploading")
-//                pd.show()
+                //Storage Bucket
+                val storage = Firebase.storage("gs://diordna-android1.appspot.com")
+                //Getting current user
+                val user = Firebase.auth.currentUser
+                //Getting Refrence to upload the file
+                val audioRefrence = storage.reference.child("CommunityNotes/${user!!.email.toString()}/Recordings/${audio.Title}.mp3")
 
-                val audioRefrence = Firebase.storage.reference.child("audio/recording.mp3")
-                audioRefrence.putFile(audio.SongPath!!.toUri())
-                    .addOnSuccessListener {p0->
-//                        pd.dismiss()
-                        Toast.makeText(applicationContext,"File Uploaded", Toast.LENGTH_SHORT).show()
+                copyBtn.isEnabled = false
+                urlText.text = getString(R.string.uploading)
+
+                var file = Uri.fromFile(File(audio.audioPath!!))
+
+                //After getting file uploading it in firebase
+                audioRefrence.putFile(file)
+                    .addOnSuccessListener {
+//                        Toast.makeText(applicationContext,"File Uploaded", Toast.LENGTH_SHORT).show()
                     }
                     .addOnFailureListener{ p0->
-//                        pd.dismiss()
                         Toast.makeText(applicationContext,p0.message, Toast.LENGTH_SHORT).show()
                     }
                     .addOnCompleteListener { p0 ->
                         if(p0.isSuccessful){
-                            val downloadURl = p0.result.toString()
-                            urlText.text = downloadURl
+                            audioRefrence.downloadUrl.addOnSuccessListener {
+                                copyBtn.isEnabled = true
+                                urlText.text = it.toString()
+                            }
                         }
-
                     }
-
             }
+
             return myview
         }
     }
@@ -268,6 +280,7 @@ class CategoryActivity : AppCompatActivity() {
         val audioList = ArrayList<AudioInfo>()
         val audioFile = file.listFiles()!!
 
+        //This i will iterate over the files
         var i = 0
         while(i < file.listFiles()!!.size){
             audioList.add(
@@ -278,8 +291,6 @@ class CategoryActivity : AppCompatActivity() {
                     audioFile[i].path
                 )
             )
-            Log.i(TAG, "loadAudioFiles: ${audioFile[i].nameWithoutExtension} ")
-            //audioFile[i].delete()
             i += 1
         }
 
@@ -287,8 +298,7 @@ class CategoryActivity : AppCompatActivity() {
         audioView.adapter = adapter
     }
 
-    //Delete Audio files
-    //It will load audio files
+    //It will Delete Audio files
     private fun deleteAudioFiles(serialNumber: Int) {
 
         val userName: String = firebaseUserName()
@@ -314,7 +324,6 @@ class CategoryActivity : AppCompatActivity() {
 
     }
 
-
     //To get the username of the user
     private fun firebaseUserName(): String {
         val user = Firebase.auth.currentUser
@@ -325,6 +334,7 @@ class CategoryActivity : AppCompatActivity() {
         return name
     }
 
+    //Convert Long Int to Time and return String
     private fun convertLongToTime(time: Long): String {
         val date = Date(time)
         val format = SimpleDateFormat("dd.MM.yyyy HH:mm")

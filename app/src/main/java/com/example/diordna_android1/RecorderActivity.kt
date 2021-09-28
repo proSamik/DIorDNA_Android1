@@ -31,7 +31,7 @@ class RecorderActivity : AppCompatActivity() {
     private var running = false                      // Created to check if the chronometer is running or not
     private var pauseOFFset = 0L                     // It is used to subtract the lag in chronometer
     private var mrRunning = false                    // It will check if mediaPlayer is running or not
-    private var statusTextMessage = "Status: "
+    private var statusTextMessage = "Status: "       // Status message
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -227,6 +227,9 @@ class RecorderActivity : AppCompatActivity() {
         resetChronometer()
         statusText.text = statusTextMessage + "Note Saved"
         noteTitleEditText.text.clear()
+
+        val intent = Intent(applicationContext, MainActivity::class.java)
+        startActivity(intent)
     }
 
     //It will check weather the Note title is empty or not
