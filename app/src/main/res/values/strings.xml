@@ -46,5 +46,6 @@
     <string name="delete">Delete</string>
     <string name="stop_1">STOP</string>
     <string name="url">URL</string>
+    <string name="uploading">Uploading...</string>
 
 </resources>
