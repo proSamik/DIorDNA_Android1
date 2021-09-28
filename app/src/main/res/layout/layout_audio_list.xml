@@ -134,16 +134,18 @@
                 android:id="@+id/urlTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:minWidth="280dp"
-                android:maxWidth="300dp"
+                android:minWidth="200dp"
+                android:maxWidth="190dp"
+                android:minHeight="18dp"
+                android:gravity="center_vertical"
                 android:background="@color/theme_white_background"
                 android:textColorHighlight="@color/white"
-                android:text="@string/url"
+                android:text="@string/generate_url_by_clicking_on_the_share_button"
                 android:maxLines="1"
                 android:textColor="@color/themeTextColor"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="5dp"
-                android:textSize="15sp" />
+                android:textSize="12sp" />
 
             <!--COPY-->
             <ImageButton
@@ -153,6 +155,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:background="@android:color/transparent" />
+
         </LinearLayout>
 
     </LinearLayout>

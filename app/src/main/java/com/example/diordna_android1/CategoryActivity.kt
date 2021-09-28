@@ -217,7 +217,7 @@ class CategoryActivity : AppCompatActivity() {
             //Copy Button function
             copyBtn.setOnClickListener {
 
-                if (urlText.text.toString() != "URL") {
+                if (urlText.text.toString() != "Generate URL by clicking on the share button") {
                     val textToCopy = urlText.text
 
                     val clipboardManager =
@@ -270,8 +270,10 @@ class CategoryActivity : AppCompatActivity() {
     private fun loadAudioFiles() {
 
         val userName: String = firebaseUserName()
+
+        //Getting the Category from the Intent message passed
         val labelCategory = message
-        Log.i(TAG, "loadAudioFiles: LabelCategory: $labelCategory")
+
         val filepath = Environment.getExternalStorageDirectory().path       // getting filepath
         val file = File("$filepath/NoiceNotes/${userName}/${labelCategory}")
         if (!file.exists()) {

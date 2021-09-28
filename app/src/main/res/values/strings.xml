@@ -1,5 +1,5 @@
-<resources>
-    <string name="app_name">DIorDNA_Android1</string>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name" tools:ignore="Typos">DIorDNA_Android1</string>
     <string name="devlok_master">Devlok Master</string>
     <string name="enter_your_password">Enter Your Password</string>
     <string name="enter_your_email">Enter Your Email</string>
@@ -46,6 +46,11 @@
     <string name="delete">Delete</string>
     <string name="stop_1">STOP</string>
     <string name="url">URL</string>
-    <string name="uploading">Uploading...</string>
+    <string name="uploading">Uploading…</string>
+    <string name="download">Community</string>
+    <string name="play_the_url">PLAY THE URL</string>
+    <string name="share_your_previous_notes">SHARE YOUR PREVIOUS NOTES WITH FRIENDS</string>
+    <string name="generate_url_by_clicking_on_the_share_button">Generate URL by clicking on the share button</string>
+    <string name="category">category</string>
 
 </resources>

@@ -304,6 +304,24 @@
             app:layout_constraintStart_toEndOf="@+id/profile"
             style="?android:attr/buttonBarButtonStyle" />
 
+        <!--Community Button-->
+        <Button
+            android:id="@+id/communityBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:drawableTop="@drawable/cloud_download_outline_icon"
+            android:padding="5dp"
+            android:text="@string/download"
+            android:textColor="#3D5AFE"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/info"
+            tools:ignore="TextContrastCheck"
+            style="?android:attr/buttonBarButtonStyle" />
+
         <!--Profile Button-->
         <Button
             android:id="@+id/profileBtn"
@@ -321,8 +339,6 @@
             app:layout_constraintStart_toEndOf="@+id/info"
             tools:ignore="TextContrastCheck"
             style="?android:attr/buttonBarButtonStyle" />
-
-        <!--Community Button-->
 
     </LinearLayout>
 

@@ -91,17 +91,24 @@ class RecorderActivity : AppCompatActivity() {
             mrRunning = false
         }
 
-
         //Codes for Navigation
         homeBtn.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
 
+        //Add Note Navigation
         noteBtn.setOnClickListener {
             //Create Note no need to be done here
         }
 
+        //Community Navigation
+        communityBtn.setOnClickListener{
+            val intent = Intent(this, CommunityActivity::class.java)
+            startActivity(intent)
+        }
+
+        //Profile Navigation
         profileBtn.setOnClickListener {
             val intent = Intent(this, ProfileActivity::class.java)
             startActivity(intent)
@@ -307,8 +314,8 @@ class RecorderActivity : AppCompatActivity() {
     }
 
     //On stopping the activity the note will save automatically
-    override fun onStop(){
-        super.onStop()
+    override fun onDestroy(){
+        super.onDestroy()
         if(mrRunning){
             stopRecording()
         }

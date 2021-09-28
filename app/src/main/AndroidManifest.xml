@@ -9,7 +9,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
-        android:allowBackup="true"
+        android:allowBackupOnly="true"
         android:hardwareAccelerated="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/noice_notes"
@@ -19,6 +19,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DIorDNA_Android1">
         <activity
+            android:name=".CommunityActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
             android:name=".ProfileActivity"
             android:exported="true" />
         <activity
@@ -27,7 +31,7 @@
         <activity
             android:name=".CategoryActivity"
             android:exported="true"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".RecorderActivity"
             android:exported="true"

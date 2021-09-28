@@ -21,7 +21,7 @@
             android:id="@+id/category"
             android:layout_width="200dp"
             android:layout_height="34dp"
-            android:text="category"
+            android:text="@string/category"
             android:textAlignment="center"
             android:textSize="22sp"
             android:textAllCaps="true"
@@ -33,7 +33,6 @@
              />
     </LinearLayout>
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -41,7 +40,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="80dp"
         android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@id/nameLayout"
         app:layout_constraintStart_toStartOf="parent"
@@ -52,7 +51,7 @@
             android:id="@+id/audioView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="80dp"
+            android:layout_marginBottom="100dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"

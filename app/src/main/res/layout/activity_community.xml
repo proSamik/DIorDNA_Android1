@@ -5,59 +5,157 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/activity_login_bg"
-    tools:context=".MainActivity">
+    tools:context=".CommunityActivity">
 
-    <!--Image ICON-->
+    <!-- Community LOGO-->
     <ImageView
-        android:id="@+id/icon"
-        android:layout_width="236dp"
-        android:layout_height="152dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/recordBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/main_icon"
-        android:contentDescription="@string/home" />
-
-    <!--    RECORD BUTTON-->
-    <Button
-        android:id="@+id/recordBtn"
+        android:id="@+id/communityLogo"
         android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/textBackgroundColor"
-        android:drawableTop="@drawable/add_mic_blue"
-        android:gravity="center"
-        android:paddingRight="20dp"
-        android:paddingLeft="20dp"
-        android:paddingTop="34dp"
-        android:paddingBottom="25dp"
-        android:text="@string/create_note"
-        android:textColor="@color/themeColor"
-        android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@id/icon"
-        app:layout_constraintBottom_toTopOf="@id/textView2"
+        android:layout_height="150dp"
+        android:src="@drawable/community_icon"
+        android:layout_marginTop="60dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/playURL"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <!--    PREVIOUS NOTES-->
+    <!-- Play URL-->
+    <LinearLayout
+        android:id="@+id/playURL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        app:layout_constraintBottom_toTopOf="@id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/communityLogo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" >
+
+        <!--Play the URL-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/play_the_url"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="#4B4D4C"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            />
+
+        <!--URL PLAYER-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical"
+            android:background="@color/textBackgroundColor"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp" >
+
+            <!--Function Layout-->
+            <LinearLayout
+                android:id="@+id/functionLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center" >
+
+                <!--PLAY BUTTON-->
+                <Button
+                    android:id="@+id/playButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableTop="@drawable/play_icon"
+                    android:background="@android:color/transparent"
+                    android:text="@string/play"
+                    android:textColor="@color/themeColor"
+                    android:textSize="12sp" />
+
+                <!--STOP-->
+                <Button
+                    android:id="@+id/stopButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:drawableTop="@drawable/stop_icon"
+                    android:background="@android:color/transparent"
+                    android:text="@string/stop"
+                    android:textColor="@color/themeColor"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <!--URL Link-->
+            <LinearLayout
+                android:id="@+id/urlLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                android:gravity="center" >
+
+                <!--download-->
+                <ImageButton
+                    android:id="@+id/shareButton"
+                    android:src="@drawable/cloud_download_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:background="@android:color/transparent" />
+
+                <!--URL EditText-->
+                <EditText
+                    android:id="@+id/urlEditText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="280dp"
+                    android:maxWidth="280dp"
+                    android:minHeight="25dp"
+                    android:background="@color/theme_white_background"
+                    android:textColorHighlight="@color/white"
+                    android:hint="@string/url"
+                    android:maxLines="1"
+                    android:inputType="text"
+                    android:textColor="@color/themeTextColor"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="5dp"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <!--Status Bar-->
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!--Share YOUR NOTES-->
     <LinearLayout
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/recordBtn"
+        app:layout_constraintTop_toBottomOf="@id/playURL"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" >
 
+        <!--Share Your Private Notes-->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="0dp"
-            android:text="@string/previous_notes"
+            android:text="@string/share_your_previous_notes"
             android:textColor="#4B4D4C"
-            android:textSize="25sp"
+            android:layout_marginTop="20dp"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
         <!-- Note Category Layout-->
@@ -82,7 +180,7 @@
                 <Button
                     android:id="@+id/urgentBtn"
                     android:layout_width="150dp"
-                    android:layout_height="100dp"
+                    android:layout_height="80dp"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:text="@string/urgent"
@@ -94,7 +192,7 @@
                 <Button
                     android:id="@+id/importantBtn"
                     android:layout_width="150dp"
-                    android:layout_height="100dp"
+                    android:layout_height="80dp"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:text="@string/important"
@@ -116,7 +214,7 @@
                 <Button
                     android:id="@+id/normalBtn"
                     android:layout_width="150dp"
-                    android:layout_height="100dp"
+                    android:layout_height="80dp"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:text="@string/normal"
@@ -183,7 +281,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:drawableTop="@drawable/cloud_download_outline_icon"
+            android:drawableTop="@drawable/cloud_download_icon"
             android:padding="5dp"
             android:text="@string/download"
             android:textColor="#3D5AFE"

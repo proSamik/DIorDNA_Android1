@@ -1,15 +1,16 @@
 package com.example.diordna_android1
 
+import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.google.firebase.auth.FirebaseAuth
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_profile.*
 
 class ProfileActivity : AppCompatActivity() {
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
@@ -42,9 +43,23 @@ class ProfileActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        //Note Navigation
+        noteBtn.setOnClickListener {
+            val intent = Intent(this, RecorderActivity::class.java)
+            startActivity(intent)
+        }
+
+        //Community Navigation
+        communityBtn.setOnClickListener{
+            val intent = Intent(this, CommunityActivity::class.java)
+            startActivity(intent)
+        }
+
+        //Profile Navigation
         profileBtn.setOnClickListener {
             //Profile no need to be done here
         }
+
     }
 
     //To get the username of the user
