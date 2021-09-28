@@ -12,13 +12,15 @@ import android.os.Environment
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.BaseAdapter
+import android.widget.Button
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_category.*
-import kotlinx.android.synthetic.main.layout_audio_list.*
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
@@ -87,8 +89,16 @@ class CategoryActivity : AppCompatActivity() {
             val audio = myListAudio[position]
             Log.i(TAG, "loadAudioFiles: ${audio.Title}")
 
+            //Stop Button
             val stopBtn = myview.findViewById<Button>(R.id.stopButton)
             stopBtn.isEnabled = false
+
+            //Delete button
+            val deleteBtn = myview.findViewById<Button>(R.id.deleteButton)
+
+            //Serial No. of the song
+            val serialNo = myview.findViewById<TextView>(R.id.slno)
+            serialNo.text = audio.slno.toString() + "."
 
             //Title of the song
             val textTitle = myview.findViewById<TextView>(R.id.noteTitle)
@@ -101,7 +111,6 @@ class CategoryActivity : AppCompatActivity() {
             //Play Button and their functions
             val playBtn = myview.findViewById<Button>(R.id.playButton)
             playBtn.setOnClickListener {
-
                 //When user wants to resume
                 if(playBtn.text.toString() == "PAUSE"){
                         try {
@@ -145,6 +154,9 @@ class CategoryActivity : AppCompatActivity() {
                         playBtn.setCompoundDrawablesRelativeWithIntrinsicBounds(null,pauseIcon,null,null)
                         playBtn.text = "PAUSE"
 
+                        //disable the delete button
+                        deleteBtn.isEnabled = false
+
                     } catch (e: Exception) {
                         Toast.makeText(applicationContext,
                             "Audio Can't be played",
@@ -158,6 +170,9 @@ class CategoryActivity : AppCompatActivity() {
                     val resumeIcon: Drawable? = resources.getDrawable(imageRes)
                     playBtn.setCompoundDrawablesRelativeWithIntrinsicBounds(null,resumeIcon,null,null)
                     playBtn.text = "START"
+
+                    //Enable Delete button after complete
+                    deleteBtn.isEnabled = true
                 }
             }
 
@@ -169,12 +184,18 @@ class CategoryActivity : AppCompatActivity() {
                 val resumeIcon: Drawable? = resources.getDrawable(imageRes)
                 playBtn.setCompoundDrawablesRelativeWithIntrinsicBounds(null,resumeIcon,null,null)
                 playBtn.text = "START"
+
+                deleteBtn.isEnabled = true
             }
 
             //Delete Button function
-            val deleteBtn = myview.findViewById<Button>(R.id.deleteButton)
             deleteBtn.setOnClickListener {
-                //TODO: Make a function to delete
+                playBtn.isEnabled = false
+                stopBtn.isEnabled = false
+                deleteAudioFiles(audio.slno!!)
+
+                //It will refresh the Activity
+                recreate()
             }
             return myview
         }
@@ -192,27 +213,52 @@ class CategoryActivity : AppCompatActivity() {
             file.mkdirs()                                                   // if file doesn't exist then make directory
         }
         val audioList = ArrayList<AudioInfo>()
-        val audioFile = file.listFiles()
+        val audioFile = file.listFiles()!!
 
         var i = 0
-        Log.i(TAG, "loadAudioFiles: ${file.listFiles().size} ")
-
-        while(i < file.listFiles().size){
+        while(i < file.listFiles()!!.size){
             audioList.add(
                 AudioInfo(
+                    i+1,
                     audioFile[i].nameWithoutExtension,
                     convertLongToTime(audioFile[i].lastModified()),
                     audioFile[i].path
                 )
             )
             Log.i(TAG, "loadAudioFiles: ${audioFile[i].nameWithoutExtension} ")
-            //songFile[i].delete()
+            //audioFile[i].delete()
             i += 1
         }
 
         adapter = MyAudioAdapter(audioList)
         audioView.adapter = adapter
-        Log.i(TAG, "loadAudioFiles: Again Successful till here")
+    }
+
+    //Delete Audio files
+    //It will load audio files
+    private fun deleteAudioFiles(serialNumber: Int) {
+
+        val userName: String = firebaseUserName()
+        val labelCategory = message
+        Log.i(TAG, "loadAudioFiles: LabelCategory: $labelCategory")
+        val filepath = Environment.getExternalStorageDirectory().path       // getting filepath
+        val file = File("$filepath/NoiceNotes/${userName}/${labelCategory}")
+        if (!file.exists()) {
+            file.mkdirs()                                                   // if file doesn't exist then make directory
+        }
+        val audioFile = file.listFiles()!!
+
+        var i = 0
+        while(i < file.listFiles()!!.size){
+
+            //if condition is reached then delete the audio file
+                if (serialNumber-1 == i){
+                    audioFile[i].delete()
+                    Log.i(TAG, "loadAudioFiles: ${audioFile[i].nameWithoutExtension} is deleted ")
+                }
+            i += 1
+        }
+
     }
 
 

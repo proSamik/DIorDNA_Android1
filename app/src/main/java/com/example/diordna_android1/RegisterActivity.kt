@@ -1,6 +1,5 @@
 package com.example.diordna_android1
 
-import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
@@ -12,7 +11,6 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_register.*
-import java.util.regex.Pattern
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -91,14 +89,14 @@ class RegisterActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
-                    Log.d(ContentValues.TAG, "createUserWithEmail:success")
+                    Log.d(TAG, "createUserWithEmail:success")
                     //Toast.makeText(this,"User account created", Toast.LENGTH_SHORT).show()
                     updateProfile(userName)
                     updateUI()
 
                 } else {
                     // If sign in fails, display a message to the user.
-                    Log.w(ContentValues.TAG, "createUserWithEmail:failure", task.exception)
+                    Log.w(TAG, "createUserWithEmail:failure", task.exception)
                     Toast.makeText(baseContext, "Authentication failed.",
                         Toast.LENGTH_SHORT).show()
                     Toast.makeText(this,"Try Again", Toast.LENGTH_SHORT).show()
@@ -117,7 +115,8 @@ class RegisterActivity : AppCompatActivity() {
         user!!.updateProfile(profileUpdates)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    Toast.makeText(this,"Username added", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this,"Username added", Toast.LENGTH_SHORT).show()
+                    Log.i(TAG, "updateProfile: User added successfully")
                 }
             }
     }
