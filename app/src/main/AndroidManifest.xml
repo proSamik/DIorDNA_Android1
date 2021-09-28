@@ -26,7 +26,8 @@
             android:exported="true" />
         <activity
             android:name=".CategoryActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".RecorderActivity"
             android:exported="true"
