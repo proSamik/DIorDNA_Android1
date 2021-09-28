@@ -37,6 +37,8 @@ class RecorderActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recorder)
 
+        mrRunning = false
+
         chronometer.base = SystemClock.elapsedRealtime()
 
         // If SDK Version is greater than R, then this function is called to get access
@@ -97,7 +99,6 @@ class RecorderActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        //Add Note Navigation
         noteBtn.setOnClickListener {
             //Create Note no need to be done here
         }
@@ -108,7 +109,6 @@ class RecorderActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        //Profile Navigation
         profileBtn.setOnClickListener {
             val intent = Intent(this, ProfileActivity::class.java)
             startActivity(intent)
@@ -192,7 +192,6 @@ class RecorderActivity : AppCompatActivity() {
     private fun pauseRecording() {
         if(pause.text.toString() == "PAUSE"){
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-
                 try{
                     mr.pause()
                     pauseChronometer()
@@ -227,6 +226,7 @@ class RecorderActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     private fun stopRecording() {
         mr.stop()                                                       // It stops recording
+        mrRunning = false
         start.isEnabled = true
         pause.isEnabled = false
         stop.isEnabled = false

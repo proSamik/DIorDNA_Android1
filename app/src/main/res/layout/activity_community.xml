@@ -247,7 +247,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:drawableTop="@drawable/home_icon"
+            android:drawableTop="@drawable/home_outline_icon"
             android:padding="5dp"
             android:text="@string/home"
             android:textColor="#3D5AFE"
