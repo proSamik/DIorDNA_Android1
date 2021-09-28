@@ -42,11 +42,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/note_title"
-                android:minWidth="195dp"
+                android:minWidth="190dp"
+                android:maxWidth="250dp"
                 android:textSize="18sp"
                 android:textColor="@color/themeTextColor"
                 android:gravity="center_vertical"
-                android:layout_marginLeft="10dp" />
+                android:layout_marginLeft="5dp" />
 
             <!--Last Modified Date-->
             <TextView
@@ -57,7 +58,8 @@
                 android:text="@string/last_modified_date"
                 android:textAlignment="viewEnd"
                 android:textColor="@color/themeTextColor"
-                android:layout_marginRight="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
                 android:textSize="15sp" />
 
         </LinearLayout>

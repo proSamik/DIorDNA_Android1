@@ -21,9 +21,6 @@ import androidx.core.app.ActivityCompat
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_recorder.*
-import kotlinx.android.synthetic.main.activity_recorder.homeBtn
-import kotlinx.android.synthetic.main.activity_recorder.noteBtn
-import kotlinx.android.synthetic.main.activity_recorder.profileBtn
 import java.io.File
 import java.io.IOException
 
@@ -236,6 +233,10 @@ class RecorderActivity : AppCompatActivity() {
     private fun validation(): Boolean {
         if(noteTitleEditText.text.isNullOrEmpty()){
             noteTitleEditText?.error = "Title can't be empty"
+            return false
+        }
+        if(noteTitleEditText.text.toString().length > 25){
+            noteTitleEditText?.error = "Maximum 25 characters"
             return false
         }
         return true
