@@ -48,8 +48,8 @@ This project is mantained by:
     a. Setting up the target and completion of the task in the given timeline. <br>
     b. Communicating with the team members and having a clear idea of the project. <br>
 2. Time managment- <br>
-    a. Learned time adminstration skills.
-    b. How much time should be invested in case of any bugs detected before presenting the queries to the mentors.
+    a. Learned time adminstration skills. <br>
+    b. How much time should be invested in case of any bugs detected before presenting the queries to the mentors. <br>
 
 <hr>
 
